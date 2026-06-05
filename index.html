@@ -19,217 +19,256 @@
   --text-light:#8A8A8A;
   --border:#E0DDD8;
   --white:#FFFFFF;
-  --shadow:0 2px 20px rgba(0,0,0,0.08);
 }
-body{font-family:'Noto Sans TC',sans-serif;background:var(--cream);color:var(--text-dark);min-height:100vh}
+body{font-family:'Noto Sans TC',sans-serif;background:var(--cream);color:var(--text-dark);min-height:100vh;overflow-x:hidden}
 
-nav{background:var(--white);border-bottom:1px solid var(--border);padding:0 48px;display:flex;align-items:center;justify-content:space-between;height:72px;position:sticky;top:0;z-index:100}
-.logo{display:flex;align-items:center;gap:10px;font-size:22px;font-weight:700;color:var(--green-dark);cursor:pointer}
-.logo-icon{width:36px;height:36px;background:var(--green-dark);border-radius:50%;display:flex;align-items:center;justify-content:center}
-.logo-icon svg{width:18px;height:18px;fill:white}
-.nav-search{display:flex;align-items:center;background:var(--white);border:1.5px solid var(--border);border-radius:40px;overflow:hidden;box-shadow:var(--shadow)}
-.nav-search-field{padding:10px 20px;font-size:14px;color:var(--text-dark);border:none;outline:none;background:transparent;font-family:'Noto Sans TC',sans-serif;cursor:pointer}
-.nav-search-field:not(:last-child){border-right:1px solid var(--border)}
-.nav-search-btn{background:var(--green-dark);border:none;padding:10px 16px;cursor:pointer;display:flex;align-items:center;border-radius:0 40px 40px 0}
-.nav-search-btn svg{width:18px;height:18px;fill:white}
-.nav-right{display:flex;align-items:center;gap:12px}
-.nav-avatar{width:36px;height:36px;border-radius:50%;background:var(--green-light);overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--green-dark);font-weight:700}
+/* ── NAV ── */
+nav{background:var(--white);border-bottom:1px solid var(--border);padding:0 48px;display:flex;align-items:center;justify-content:space-between;height:72px;position:sticky;top:0;z-index:100;gap:16px}
+@media(max-width:768px){nav{padding:0 16px;height:60px}}
 
+.logo{display:flex;align-items:center;gap:10px;font-size:20px;font-weight:700;color:var(--green-dark);cursor:pointer;flex-shrink:0;text-decoration:none}
+.logo img{width:36px;height:36px;border-radius:8px;object-fit:cover}
+@media(max-width:480px){.logo-text{display:none}}
+
+/* nav-search: hidden on home page, shown elsewhere */
+.nav-search{display:flex;align-items:center;background:var(--white);border:1.5px solid var(--border);border-radius:40px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.08);flex:1;max-width:520px;cursor:pointer;transition:opacity .2s}
+.nav-search.hidden{opacity:0;pointer-events:none;visibility:hidden}
+@media(max-width:768px){.nav-search{max-width:none;border-radius:24px}}
+.nav-field{padding:8px 14px;font-size:13px;color:var(--text-dark);border:none;outline:none;background:transparent;cursor:pointer;flex:1;min-width:0}
+.nav-field:not(:last-of-type){border-right:1px solid var(--border)}
+.nav-label{font-size:10px;color:var(--text-light);display:block;white-space:nowrap}
+.nav-val{font-size:12px;color:var(--text-dark);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media(max-width:600px){.nav-field.hide-sm{display:none}}
+.nav-btn{background:var(--green-dark);border:none;padding:8px 12px;cursor:pointer;display:flex;align-items:center;border-radius:0 40px 40px 0;flex-shrink:0}
+.nav-btn svg{width:16px;height:16px}
+@media(max-width:768px){.nav-btn{border-radius:0 24px 24px 0}}
+.nav-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.nav-avatar{width:32px;height:32px;border-radius:50%;background:var(--green-light);display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer}
+.nav-menu{cursor:pointer;padding:6px;display:flex;flex-direction:column;gap:4px}
+.nav-menu span{width:20px;height:2px;background:var(--text-dark);display:block;border-radius:2px}
+
+/* ── PAGES ── */
 .page{display:none}
 .page.active{display:block}
 
-.hero{position:relative;min-height:560px;background:linear-gradient(180deg,var(--green-light) 0%, var(--cream) 100%);overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 48px}
-.hero-title{font-family:'Noto Serif TC',serif;font-size:64px;font-weight:700;color:var(--green-dark);text-align:center;margin-bottom:40px;position:relative;z-index:2}
-.hero-dogs{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:700px;opacity:0.15;pointer-events:none}
-.search-bar{background:var(--white);border:1.5px solid var(--border);border-radius:60px;display:flex;align-items:center;overflow:hidden;box-shadow:0 4px 30px rgba(0,0,0,0.12);position:relative;z-index:2;max-width:680px;width:100%}
-.search-field{flex:1;padding:18px 24px;border:none;outline:none;font-size:15px;font-family:'Noto Sans TC',sans-serif;background:transparent;cursor:pointer}
-.search-label{font-size:11px;color:var(--text-light);display:block;margin-bottom:2px}
-.search-value{font-size:15px;color:var(--text-dark)}
-.search-divider{width:1px;height:40px;background:var(--border)}
-.search-btn{background:var(--green-dark);border:none;width:56px;height:56px;border-radius:50%;margin:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background 0.2s}
+/* ── HERO ── */
+.hero{position:relative;min-height:520px;background:linear-gradient(160deg,#E8F0EB 0%,#F5F5EF 60%,#FAF8F4 100%);overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 24px 80px}
+@media(max-width:768px){.hero{min-height:380px;padding:40px 16px 60px}}
+.hero-title{font-family:'Noto Serif TC',serif;font-size:56px;font-weight:700;color:var(--green-dark);text-align:center;margin-bottom:32px;position:relative;z-index:2;line-height:1.2}
+@media(max-width:768px){.hero-title{font-size:36px;margin-bottom:24px}}
+@media(max-width:480px){.hero-title{font-size:28px}}
+.hero-dogs{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);width:min(800px,100vw);opacity:0.22;pointer-events:none;object-fit:cover}
+@media(max-width:768px){.hero-dogs{width:100vw;bottom:-10px;opacity:0.18}}
+
+.search-bar{background:var(--white);border:1.5px solid var(--border);border-radius:60px;display:flex;align-items:center;overflow:hidden;box-shadow:0 4px 30px rgba(0,0,0,0.12);position:relative;z-index:2;max-width:660px;width:100%}
+@media(max-width:768px){.search-bar{flex-direction:column;border-radius:20px;padding:4px}}
+.search-field{flex:1;padding:16px 20px;border:none;outline:none;font-size:14px;font-family:'Noto Sans TC',sans-serif;background:transparent;cursor:pointer;min-width:0}
+@media(max-width:768px){.search-field{width:100%;border-right:none!important;padding:12px 16px;border-bottom:1px solid var(--border)}}
+.search-field:last-of-type{border-bottom:none!important}
+.search-label{font-size:10px;color:var(--text-light);display:block;margin-bottom:2px}
+.search-value{font-size:14px;color:var(--text-dark)}
+.search-divider{width:1px;height:36px;background:var(--border);flex-shrink:0}
+@media(max-width:768px){.search-divider{display:none}}
+.search-btn{background:var(--green-dark);border:none;width:52px;height:52px;border-radius:50%;margin:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .2s}
 .search-btn:hover{background:var(--green-accent)}
-.search-btn svg{width:22px;height:22px;fill:white}
+.search-btn svg{width:20px;height:20px}
+@media(max-width:768px){.search-btn{width:100%;border-radius:14px;height:44px;margin:4px}}
 
+/* ── SECTIONS ── */
 .section{padding:48px 48px 0}
-.section-header{display:flex;align-items:center;gap:12px;margin-bottom:24px}
-.section-title{font-size:22px;font-weight:700;color:var(--text-dark)}
-.section-arrow{background:none;border:1px solid var(--border);border-radius:50%;width:32px;height:32px;cursor:pointer;display:flex;align-items:center;justify-content:center}
-.section-arrow svg{width:16px;height:16px;stroke:var(--text-dark);fill:none}
-.cards-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+@media(max-width:768px){.section{padding:32px 16px 0}}
+.section-header{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.section-title{font-size:20px;font-weight:700;color:var(--text-dark)}
+@media(max-width:480px){.section-title{font-size:17px}}
 
-.card{background:var(--white);border:1px solid var(--border);border-radius:16px;overflow:hidden;cursor:pointer;transition:transform 0.2s,box-shadow 0.2s}
-.card:hover{transform:translateY(-3px);box-shadow:0 8px 32px rgba(0,0,0,0.12)}
-.card-img{width:100%;height:200px;object-fit:cover;background:var(--green-light);display:flex;align-items:center;justify-content:center;overflow:hidden}
+/* ── CARDS GRID ── */
+.cards-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+@media(max-width:1100px){.cards-row{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:768px){.cards-row{grid-template-columns:repeat(2,1fr);gap:12px}}
+@media(max-width:480px){.cards-row{grid-template-columns:1fr;gap:10px}}
+
+.card{background:var(--white);border:1px solid var(--border);border-radius:16px;overflow:hidden;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.card:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,.1)}
+.card-img{width:100%;height:180px;background:var(--green-light);overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:40px}
+@media(max-width:480px){.card-img{height:160px}}
 .card-img img{width:100%;height:100%;object-fit:cover}
-.card-img-placeholder{font-size:48px;opacity:0.4}
-.card-body{padding:14px}
-.card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px}
-.card-name{font-size:16px;font-weight:700;color:var(--text-dark)}
-.card-rating{display:flex;align-items:center;gap:4px;font-size:13px;color:var(--text-dark);font-weight:500}
-.card-rating svg{width:14px;height:14px;fill:var(--green-dark)}
-.card-location{font-size:13px;color:var(--text-mid);margin-bottom:8px}
-.card-desc{font-size:12px;color:var(--text-mid);margin-bottom:10px;line-height:1.5}
-.card-tags{display:flex;flex-wrap:wrap;gap:4px}
-.tag{font-size:11px;padding:3px 8px;border-radius:20px;font-weight:500}
+.card-body{padding:12px}
+.card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px;gap:8px}
+.card-name{font-size:14px;font-weight:700;color:var(--text-dark);line-height:1.3}
+.card-rating{display:flex;align-items:center;gap:3px;font-size:12px;color:var(--text-dark);font-weight:600;flex-shrink:0}
+.card-location{font-size:12px;color:var(--text-mid);margin-bottom:6px}
+.card-tags{display:flex;flex-wrap:wrap;gap:3px}
+.tag{font-size:10px;padding:2px 7px;border-radius:20px;font-weight:500}
 .tag-green{background:var(--green-light);color:var(--green-dark)}
 .tag-type{background:#F0EDE8;color:var(--text-mid)}
 
-.footer{background:var(--green-dark);color:white;padding:60px 48px 40px;margin-top:60px}
-.footer-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:40px;margin-bottom:40px}
-.footer-brand{font-size:18px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:8px}
-.footer-desc{font-size:13px;color:rgba(255,255,255,0.6);line-height:1.6}
-.footer-col-title{font-size:14px;font-weight:700;margin-bottom:16px;color:var(--green-light)}
-.footer-links{list-style:none;display:flex;flex-direction:column;gap:10px}
-.footer-links li a{font-size:13px;color:rgba(255,255,255,0.7);text-decoration:none}
+/* ── FOOTER ── */
+.footer{background:var(--green-dark);color:white;padding:52px 48px 36px;margin-top:60px}
+@media(max-width:768px){.footer{padding:36px 20px 28px;margin-top:40px}}
+.footer-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px;margin-bottom:36px}
+@media(max-width:768px){.footer-grid{grid-template-columns:1fr;gap:24px}}
+.footer-brand{display:flex;align-items:center;gap:10px;font-size:18px;font-weight:700;margin-bottom:8px}
+.footer-brand img{width:32px;height:32px;border-radius:6px;opacity:.9}
+.footer-desc{font-size:12px;color:rgba(255,255,255,.55);line-height:1.7}
+.footer-col-title{font-size:13px;font-weight:700;margin-bottom:14px;color:#A8C8B4}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:9px}
+.footer-links li a{font-size:12px;color:rgba(255,255,255,.65);text-decoration:none;transition:color .15s}
 .footer-links li a:hover{color:white}
-.footer-bottom{border-top:1px solid rgba(255,255,255,0.1);padding-top:24px;font-size:12px;color:rgba(255,255,255,0.4)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:20px;font-size:11px;color:rgba(255,255,255,.35)}
 
-.results-page{padding:0 48px}
-.results-layout{display:grid;grid-template-columns:220px 1fr;gap:32px;padding-top:32px}
-.results-header{display:flex;justify-content:flex-end;padding:24px 0 0;font-size:15px;font-weight:700}
+/* ── RESULTS PAGE ── */
+.results-top{padding:20px 48px 0;display:flex;justify-content:flex-end}
+@media(max-width:768px){.results-top{padding:16px 16px 0}}
+.results-layout{display:grid;grid-template-columns:220px 1fr;gap:28px;padding:20px 48px 48px}
+@media(max-width:900px){.results-layout{grid-template-columns:1fr;padding:16px}}
 .filter-panel{position:sticky;top:88px;align-self:start}
-.filter-title{font-size:15px;font-weight:700;margin-bottom:20px;display:flex;align-items:center;gap:8px}
-.filter-section{margin-bottom:24px}
-.filter-section-title{font-size:13px;font-weight:700;color:var(--text-dark);margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
-.filter-tags{display:flex;flex-wrap:wrap;gap:6px}
-.filter-tag{font-size:12px;padding:5px 10px;border:1px solid var(--border);border-radius:20px;cursor:pointer;background:var(--white);color:var(--text-mid);transition:all 0.15s}
+@media(max-width:900px){.filter-panel{position:static}}
+.filter-inner{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:18px}
+.filter-title{font-size:14px;font-weight:700;margin-bottom:18px;display:flex;align-items:center;gap:8px}
+.filter-section{margin-bottom:20px}
+.filter-section-title{font-size:12px;font-weight:700;color:var(--text-dark);margin-bottom:10px}
+.filter-tags{display:flex;flex-wrap:wrap;gap:5px}
+.filter-tag{font-size:11px;padding:4px 9px;border:1px solid var(--border);border-radius:20px;cursor:pointer;background:var(--white);color:var(--text-mid);transition:all .15s}
 .filter-tag:hover,.filter-tag.active{background:var(--green-dark);color:white;border-color:var(--green-dark)}
-.results-grid{display:flex;flex-direction:column;gap:0}
-.result-card{display:grid;grid-template-columns:200px 1fr;border-bottom:1px solid var(--border);padding:24px 0;cursor:pointer;transition:background 0.15s;gap:20px}
-.result-card:hover{background:var(--green-light);padding-left:8px;border-radius:8px;margin:0 -8px;padding-right:8px}
-.result-img{width:100%;height:150px;border-radius:12px;object-fit:cover;background:var(--green-light)}
-.result-info{flex:1}
-.result-name{font-size:18px;font-weight:700;margin-bottom:4px}
-.result-sub{font-size:13px;color:var(--text-mid);margin-bottom:12px}
-.result-features{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
-.feature-row{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-mid)}
-.feature-row svg{width:16px;height:16px;stroke:var(--green-dark);fill:none;flex-shrink:0}
-.result-bottom{display:flex;justify-content:space-between;align-items:center}
-.result-tags{display:flex;gap:6px;flex-wrap:wrap}
-.result-rating{font-size:14px;font-weight:700;display:flex;align-items:center;gap:4px}
 
-.detail-page{max-width:1200px;margin:0 auto;padding:32px 48px}
-.detail-grid{display:grid;grid-template-columns:1fr 380px;gap:48px}
-.main-img{width:100%;height:450px;border-radius:16px;object-fit:cover;background:var(--green-light);margin-bottom:16px;display:flex;align-items:center;justify-content:center;font-size:64px;overflow:hidden}
-.main-img img{width:100%;height:100%;object-fit:cover;border-radius:16px}
-.thumb-row{display:flex;gap:8px}
-.thumb{width:80px;height:60px;border-radius:8px;object-fit:cover;background:var(--green-light);cursor:pointer;border:2px solid transparent;flex-shrink:0;overflow:hidden}
+/* ── RESULT CARDS ── */
+.results-grid{display:flex;flex-direction:column}
+.result-card{display:grid;grid-template-columns:180px 1fr;border-bottom:1px solid var(--border);padding:20px 0;cursor:pointer;transition:background .15s;gap:16px}
+@media(max-width:600px){.result-card{grid-template-columns:120px 1fr;gap:10px;padding:14px 0}}
+@media(max-width:400px){.result-card{grid-template-columns:1fr;gap:10px}}
+.result-card:hover{background:var(--green-light);padding-left:6px;border-radius:8px;margin:0 -6px;padding-right:6px}
+.result-img{width:100%;height:140px;border-radius:12px;object-fit:cover;background:var(--green-light)}
+@media(max-width:600px){.result-img{height:100px;border-radius:8px}}
+.result-name{font-size:16px;font-weight:700;margin-bottom:3px}
+@media(max-width:600px){.result-name{font-size:14px}}
+.result-sub{font-size:12px;color:var(--text-mid);margin-bottom:10px}
+.feature-row{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-mid);margin-bottom:4px}
+.feature-row svg{width:14px;height:14px;stroke:var(--green-dark);fill:none;flex-shrink:0}
+.result-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;margin-top:8px}
+.result-tags{display:flex;gap:5px;flex-wrap:wrap}
+
+/* ── DETAIL PAGE ── */
+.detail-page{max-width:1100px;margin:0 auto;padding:32px 48px 60px}
+@media(max-width:768px){.detail-page{padding:16px 16px 40px}}
+.detail-grid{display:grid;grid-template-columns:1fr 360px;gap:40px}
+@media(max-width:900px){.detail-grid{grid-template-columns:1fr}}
+.main-img-wrap{position:relative;border-radius:16px;overflow:hidden;margin-bottom:12px;height:420px}
+@media(max-width:768px){.main-img-wrap{height:240px}}
+.main-img{width:100%;height:100%;object-fit:cover;background:var(--green-light);display:block}
+.thumb-row{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px}
+.thumb{width:80px;height:58px;border-radius:8px;object-fit:cover;cursor:pointer;border:2px solid transparent;flex-shrink:0;background:var(--green-light)}
 .thumb.active{border-color:var(--green-dark)}
-.thumb img{width:100%;height:100%;object-fit:cover}
-.detail-panel{position:sticky;top:88px;align-self:start}
-.detail-name{font-family:'Noto Serif TC',serif;font-size:28px;font-weight:700;margin-bottom:8px}
-.detail-sub{font-size:14px;color:var(--text-mid);margin-bottom:16px}
-.detail-rating{display:flex;align-items:center;gap:8px;margin-bottom:20px}
-.paw{font-size:18px}
-.detail-price{font-size:32px;font-weight:700;color:var(--green-dark);margin-bottom:24px}
-.detail-price span{font-size:14px;font-weight:400;color:var(--text-mid)}
-.detail-features{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:20px 0;margin-bottom:20px;display:flex;flex-direction:column;gap:12px}
-.detail-feature{display:flex;align-items:center;gap:10px;font-size:14px}
-.detail-feature svg{width:18px;height:18px;stroke:var(--green-dark);fill:none;flex-shrink:0}
-.section-subtitle{font-family:'Noto Serif TC',serif;font-size:20px;font-weight:700;margin:28px 0 16px}
-.rules-list{display:flex;flex-direction:column;gap:8px}
-.rule-item{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--text-mid)}
-.rule-item svg{width:16px;height:16px;flex-shrink:0}
-.map-box{background:var(--green-light);border-radius:12px;height:200px;display:flex;align-items:center;justify-content:center;color:var(--green-dark);font-size:13px;margin-top:16px}
-.book-btn{width:100%;padding:16px;background:var(--green-dark);color:white;border:none;border-radius:12px;font-size:16px;font-weight:700;cursor:pointer;font-family:'Noto Sans TC',sans-serif;transition:background 0.2s;margin-top:16px}
+.detail-panel-sticky{position:sticky;top:88px}
+@media(max-width:900px){.detail-panel-sticky{position:static}}
+.detail-name{font-family:'Noto Serif TC',serif;font-size:26px;font-weight:700;margin-bottom:6px;line-height:1.3}
+@media(max-width:480px){.detail-name{font-size:20px}}
+.detail-sub{font-size:13px;color:var(--text-mid);margin-bottom:12px}
+.detail-rating{display:flex;align-items:center;gap:8px;margin-bottom:18px}
+.detail-price{font-size:28px;font-weight:700;color:var(--green-dark);margin-bottom:20px}
+.detail-price span{font-size:13px;font-weight:400;color:var(--text-mid)}
+.detail-feats{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:16px 0;margin-bottom:16px;display:flex;flex-direction:column;gap:10px}
+.detail-feat{display:flex;align-items:center;gap:10px;font-size:13px}
+.detail-feat svg{width:17px;height:17px;stroke:var(--green-dark);fill:none;flex-shrink:0}
+.section-subtitle{font-family:'Noto Serif TC',serif;font-size:18px;font-weight:700;margin:24px 0 12px}
+.rules-list{display:flex;flex-direction:column;gap:7px}
+.rule-item{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-mid)}
+.rule-item svg{width:15px;height:15px;flex-shrink:0}
+.map-box{background:var(--green-light);border-radius:12px;height:180px;display:flex;align-items:center;justify-content:center;color:var(--green-dark);font-size:13px;margin-top:14px}
+.book-btn{width:100%;padding:14px;background:var(--green-dark);color:white;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Noto Sans TC',sans-serif;transition:background .2s;margin-top:14px}
 .book-btn:hover{background:var(--green-accent)}
-.loading{text-align:center;padding:60px;color:var(--text-light);font-size:15px}
-.dog-size-badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:500;background:var(--green-light);color:var(--green-dark)}
+.loading{text-align:center;padding:48px;color:var(--text-light);font-size:14px}
 
-.search-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:200;align-items:flex-start;justify-content:center;padding-top:80px}
+/* ── MODAL ── */
+.search-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:center;justify-content:center;padding:16px}
 .search-modal.open{display:flex}
-.search-modal-box{background:var(--white);border-radius:24px;padding:32px;width:600px;box-shadow:0 20px 60px rgba(0,0,0,0.15)}
-.modal-title{font-size:20px;font-weight:700;margin-bottom:24px}
-.modal-field{margin-bottom:16px}
-.modal-label{font-size:12px;color:var(--text-light);margin-bottom:6px}
-.modal-input{width:100%;padding:12px 16px;border:1.5px solid var(--border);border-radius:10px;font-size:15px;font-family:'Noto Sans TC',sans-serif;outline:none}
+.modal-box{background:var(--white);border-radius:24px;padding:28px;width:100%;max-width:540px;box-shadow:0 20px 60px rgba(0,0,0,.15);max-height:90vh;overflow-y:auto}
+.modal-title{font-size:18px;font-weight:700;margin-bottom:20px}
+.modal-field{margin-bottom:14px}
+.modal-label{font-size:11px;color:var(--text-light);margin-bottom:5px;display:block}
+.modal-input{width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;font-family:'Noto Sans TC',sans-serif;outline:none}
 .modal-input:focus{border-color:var(--green-dark)}
-.modal-actions{display:flex;gap:12px;justify-content:flex-end;margin-top:24px}
-.btn-secondary{padding:10px 20px;border:1px solid var(--border);border-radius:10px;background:var(--white);cursor:pointer;font-size:14px;font-family:'Noto Sans TC',sans-serif}
-.btn-primary{padding:10px 24px;border:none;background:var(--green-dark);color:white;border-radius:10px;cursor:pointer;font-size:14px;font-family:'Noto Sans TC',sans-serif;font-weight:500}
+.modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:20px}
+.btn-sec{padding:10px 18px;border:1px solid var(--border);border-radius:10px;background:var(--white);cursor:pointer;font-size:13px;font-family:'Noto Sans TC',sans-serif}
+.btn-pri{padding:10px 22px;border:none;background:var(--green-dark);color:white;border-radius:10px;cursor:pointer;font-size:13px;font-family:'Noto Sans TC',sans-serif;font-weight:600}
 </style>
 </head>
 <body>
 
-<nav>
-  <div class="logo" onclick="showPage('home')">
-    <div class="logo-icon">
-      <svg viewBox="0 0 24 24"><path d="M3 9c0-1.1.9-2 2-2h1V5a2 2 0 114 0v2h4V5a2 2 0 114 0v2h1a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/></svg>
+<nav id="mainNav">
+  <a class="logo" href="#" onclick="showPage('home');return false">
+    <img src="./assets/logo.png" alt="together logo" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+    <svg style="display:none;width:36px;height:36px;flex-shrink:0" viewBox="0 0 36 36"><rect width="36" height="36" rx="8" fill="#1C3C2A"/><text x="18" y="24" text-anchor="middle" fill="white" font-size="18">🐾</text></svg>
+    <span class="logo-text">together</span>
+  </a>
+
+  <div class="nav-search hidden" id="navSearch" onclick="openSearchModal()">
+    <div class="nav-field">
+      <span class="nav-label">地點</span>
+      <span class="nav-val" id="navLocation">搜尋目的地</span>
     </div>
-    together
-  </div>
-  <div class="nav-search" id="navSearch" onclick="openSearchModal()">
-    <div class="nav-search-field">
-      <div class="search-label">地點</div>
-      <div class="search-value" id="navLocation">搜尋目的地</div>
+    <div class="nav-field hide-sm">
+      <span class="nav-label">日期</span>
+      <span class="nav-val" id="navDate">選擇日期</span>
     </div>
-    <div class="nav-search-field">
-      <div class="search-label">日期</div>
-      <div class="search-value" id="navDate">選擇日期</div>
+    <div class="nav-field hide-sm">
+      <span class="nav-label">旅客</span>
+      <span class="nav-val" id="navGuest">新增</span>
     </div>
-    <div class="nav-search-field">
-      <div class="search-label">旅客</div>
-      <div class="search-value" id="navGuest">新增數量</div>
-    </div>
-    <button class="nav-search-btn">
-      <svg viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+    <button class="nav-btn" onclick="event.stopPropagation();doSearch()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
     </button>
   </div>
+
   <div class="nav-right">
     <div class="nav-avatar">🐕</div>
-    <div style="cursor:pointer;padding:8px">☰</div>
+    <div class="nav-menu" onclick="openSearchModal()"><span></span><span></span><span></span></div>
   </div>
 </nav>
 
+<!-- HOME PAGE -->
 <div id="homePage" class="page active">
   <div class="hero">
     <div class="hero-title">要去，一起去</div>
     <div class="search-bar">
       <div class="search-field" onclick="openSearchModal()">
-        <div class="search-label">地點</div>
+        <span class="search-label">地點</span>
         <div class="search-value">搜尋目的地</div>
       </div>
       <div class="search-divider"></div>
       <div class="search-field" onclick="openSearchModal()">
-        <div class="search-label">日期</div>
+        <span class="search-label">日期</span>
         <div class="search-value">選擇日期</div>
       </div>
       <div class="search-divider"></div>
       <div class="search-field" onclick="openSearchModal()">
-        <div class="search-label">旅客</div>
+        <span class="search-label">旅客</span>
         <div class="search-value">新增數量</div>
       </div>
       <button class="search-btn" onclick="doSearch()">
-        <svg viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       </button>
     </div>
+    <img class="hero-dogs" src="./assets/hero.png" alt="dogs" onerror="this.style.display='none'">
   </div>
 
   <div class="section">
-    <div class="section-header">
-      <div class="section-title">台北近郊</div>
-      <button class="section-arrow">
-        <svg viewBox="0 0 24 24" stroke-width="2"><path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
-    </div>
-    <div class="cards-row" id="nearbyCards"></div>
+    <div class="section-header"><div class="section-title">台北近郊</div></div>
+    <div class="cards-row" id="nearbyCards"><div class="loading" style="grid-column:1/-1">載入旅宿資料中...</div></div>
   </div>
 
-  <div class="section" style="margin-top:48px">
-    <div class="section-header">
-      <div class="section-title">大型狗友善</div>
-      <button class="section-arrow">
-        <svg viewBox="0 0 24 24" stroke-width="2"><path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
-    </div>
+  <div class="section" style="margin-top:44px">
+    <div class="section-header"><div class="section-title">大型狗友善</div></div>
     <div class="cards-row" id="largeCards"></div>
   </div>
 
   <footer class="footer">
     <div class="footer-grid">
       <div>
-        <div class="footer-brand">🐾 together</div>
-        <div class="footer-desc">收錄全台歡迎寵物的店家，找到適合你家狗狗的友善住宿。</div>
+        <div class="footer-brand">
+          <img src="./assets/logo.png" alt="logo" onerror="this.style.display='none'">
+          together
+        </div>
+        <div class="footer-desc">收錄全台歡迎寵物的店家，<br>找到適合你家狗狗的友善住宿。</div>
       </div>
       <div>
         <div class="footer-col-title">關於我們</div>
@@ -250,28 +289,27 @@ nav{background:var(--white);border-bottom:1px solid var(--border);padding:0 48px
         </ul>
       </div>
     </div>
-    <div class="footer-bottom">© 2024 together. 讓毛孩也能一起旅行。</div>
+    <div class="footer-bottom">© 2024 together · 讓毛孩也能一起旅行</div>
   </footer>
 </div>
 
+<!-- RESULTS PAGE -->
 <div id="resultsPage" class="page">
-  <div class="results-header">
-    <span id="resultsCount"></span>
-  </div>
+  <div class="results-top"><span id="resultsCount" style="font-size:14px;font-weight:700"></span></div>
   <div class="results-layout">
     <div class="filter-panel">
-      <div style="background:var(--white);border:1px solid var(--border);border-radius:12px;padding:20px">
+      <div class="filter-inner">
         <div class="filter-title">條件篩選 🔧</div>
         <div class="filter-section">
-          <div class="filter-section-title">狗狗大小 <span>∨</span></div>
+          <div class="filter-section-title">狗狗大小</div>
           <div class="filter-tags">
-            <span class="filter-tag" onclick="toggleFilter(this,'small')">小型犬（&lt;10kg）</span>
-            <span class="filter-tag" onclick="toggleFilter(this,'medium')">中型犬（10-25kg）</span>
-            <span class="filter-tag" onclick="toggleFilter(this,'large')">大型犬（&gt;25kg）</span>
+            <span class="filter-tag" onclick="toggleFilter(this,'small')">小型犬 &lt;10kg</span>
+            <span class="filter-tag" onclick="toggleFilter(this,'medium')">中型犬</span>
+            <span class="filter-tag" onclick="toggleFilter(this,'large')">大型犬 &gt;25kg</span>
           </div>
         </div>
         <div class="filter-section">
-          <div class="filter-section-title">住宿需求 <span>∨</span></div>
+          <div class="filter-section-title">住宿需求</div>
           <div class="filter-tags">
             <span class="filter-tag" onclick="toggleFilter(this,'furniture')">可上家具</span>
             <span class="filter-tag" onclick="toggleFilter(this,'lawn')">有草地區</span>
@@ -282,9 +320,9 @@ nav{background:var(--white);border-bottom:1px solid var(--border);padding:0 48px
           </div>
         </div>
         <div class="filter-section">
-          <div class="filter-section-title">住宿類型 <span>∨</span></div>
+          <div class="filter-section-title">住宿類型</div>
           <div class="filter-tags">
-            <span class="filter-tag" onclick="toggleFilter(this,'type_民宿')">獨棟民宿</span>
+            <span class="filter-tag" onclick="toggleFilter(this,'type_獨棟民宿')">獨棟民宿</span>
             <span class="filter-tag" onclick="toggleFilter(this,'type_公寓')">公寓</span>
             <span class="filter-tag" onclick="toggleFilter(this,'type_飯店')">飯店</span>
             <span class="filter-tag" onclick="toggleFilter(this,'type_渡假木屋')">渡假木屋</span>
@@ -293,293 +331,283 @@ nav{background:var(--white);border-bottom:1px solid var(--border);padding:0 48px
         </div>
       </div>
     </div>
-    <div>
-      <div id="resultsList" class="results-grid"></div>
-    </div>
+    <div id="resultsList" class="results-grid"></div>
   </div>
 </div>
 
+<!-- DETAIL PAGE -->
 <div id="detailPage" class="page">
-  <div class="detail-page">
-    <div id="detailContent"></div>
-  </div>
+  <div class="detail-page"><div id="detailContent"></div></div>
 </div>
 
+<!-- SEARCH MODAL -->
 <div class="search-modal" id="searchModal">
-  <div class="search-modal-box">
+  <div class="modal-box">
     <div class="modal-title">搜尋狗狗友善住宿</div>
     <div class="modal-field">
-      <div class="modal-label">地點</div>
+      <span class="modal-label">地點</span>
       <input class="modal-input" id="inputLocation" placeholder="搜尋目的地，如：宜蘭、花蓮..." type="text">
     </div>
     <div class="modal-field">
-      <div class="modal-label">入住日期</div>
+      <span class="modal-label">入住日期</span>
       <input class="modal-input" id="inputDate" type="date">
     </div>
     <div class="modal-field">
-      <div class="modal-label">旅客與狗狗</div>
+      <span class="modal-label">旅客與狗狗</span>
       <input class="modal-input" id="inputGuest" placeholder="例：2人，1中型狗" type="text">
     </div>
     <div class="modal-actions">
-      <button class="btn-secondary" onclick="closeSearchModal()">取消</button>
-      <button class="btn-primary" onclick="doSearch()">🔍 搜尋</button>
+      <button class="btn-sec" onclick="closeSearchModal()">取消</button>
+      <button class="btn-pri" onclick="doSearch()">🔍 搜尋</button>
     </div>
   </div>
 </div>
 
 <script>
-const NOTION_DB_ID = '3765d300-73ed-8005-89aa-000b6e97328a';
-let allHotels = [];
-let activeFilters = new Set();
-
-const dogImages = [
+var dogImages = [
   'https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=400&h=280&fit=crop',
   'https://images.unsplash.com/photo-1552053831-71594a27632d?w=400&h=280&fit=crop',
   'https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=400&h=280&fit=crop',
   'https://images.unsplash.com/photo-1601758174493-45d0a4d3e407?w=400&h=280&fit=crop',
   'https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=400&h=280&fit=crop',
-  'https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?w=400&h=280&fit=crop',
+  'https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?w=400&h=280&fit=crop'
 ];
+var allHotels = [];
+var activeFilters = new Set();
 
-async function loadNotionData() {
-  try {
-    const resp = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        system: `You are a data assistant. The user will ask you to return hotel data from a Notion database. 
-Return ONLY a valid JSON array, no markdown, no explanation. 
-Use this exact format for each hotel:
-[{"id":"page_id","name":"旅宿業者","type":"物件類型","dogSize":"接受狗狗大小","rating":5,"price":"狗狗費用","furniture":"可以上家具","lawn":"園內有狗狗草地區","park":"附近有公園","dogpark":"附近有狗狗公園","restaurant":"可以到餐廳區","bowl":"提供水碗","address":"地址","website":"網頁","dogArea":"狗狗在是否能在全區落地"}]`,
-        messages: [{
-          role: 'user',
-          content: `Return the hotels from the Notion database as JSON array. Here is the data:
-Hotel1: id=3765d30073ed80f8bda3cb5e6b9cf3d5, 旅宿業者=Hotel1, 物件類型=獨棟民宿, 接受狗狗大小=小, 狗狗友善評分等級=4, 狗狗費用=100, 可以上家具=可, 園內有狗狗草地區=無, 附近有公園=是, 附近有狗狗公園=否, 可以到餐廳區=是, 提供水碗=是, 地址=, 狗狗在是否能在全區落地=否
-Hotel2: id=3765d30073ed804cbe50c0e134acdbd0, 旅宿業者=Hotel2, 物件類型=營區, 接受狗狗大小=大、中、小, 狗狗友善評分等級=5, 狗狗費用=無, 可以上家具=否, 園內有狗狗草地區=有, 附近有公園=是, 附近有狗狗公園=是, 可以到餐廳區=是, 提供水碗=是, 地址=, 狗狗在是否能在全區落地=是`
-        }]
-      })
-    });
-    const data = await resp.json();
-    const text = data.content?.find(b => b.type === 'text')?.text || '[]';
-    return JSON.parse(text.replace(/```json|```/g,'').trim());
-  } catch(e) {
-    return getFallbackData();
-  }
+/* ── 載入 Notion 資料 ── */
+function loadData() {
+  return fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-20250514',
+      max_tokens: 1000,
+      system: 'Return ONLY valid JSON array, no markdown, no explanation. Format: [{"id":"","name":"","type":"","dogSize":"","rating":5,"price":"","furniture":"","lawn":"","park":"","dogpark":"","restaurant":"","bowl":"","address":"","website":"","dogArea":""}]',
+      messages: [{
+        role: 'user',
+        content: 'Return hotel JSON from: Hotel1: id=hotel1, 旅宿業者=Hotel1, 物件類型=獨棟民宿, 接受狗狗大小=小, 狗狗友善評分等級=4, 狗狗費用=100, 可以上家具=可, 草地區=無, 附近有公園=是, 狗狗公園=否, 餐廳=是, 水碗=是, 地址=新北市, 全區落地=否 | Hotel2: id=hotel2, 旅宿業者=Hotel2, 物件類型=營區, 接受狗狗大小=大中小, 狗狗友善評分等級=5, 狗狗費用=無, 家具=否, 草地區=有, 公園=是, 狗公園=是, 餐廳=是, 水碗=是, 地址=新北市, 全區落地=是'
+      }]
+    })
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(d) {
+    var text = '';
+    if (d.content && d.content.length) {
+      for (var i = 0; i < d.content.length; i++) {
+        if (d.content[i].type === 'text') { text = d.content[i].text; break; }
+      }
+    }
+    text = text.replace(/```json|```/g, '').trim();
+    return JSON.parse(text);
+  })
+  .catch(function() { return getFallback(); });
 }
 
-function getFallbackData() {
+function getFallback() {
   return [
-    {id:'hotel1',name:'Hotel1',type:'獨棟民宿',dogSize:'小',rating:4,price:'100',furniture:'可',lawn:'無',park:'是',dogpark:'否',restaurant:'是',bowl:'是',address:'台北, 新北市',dogArea:'否'},
+    {id:'hotel1',name:'Hotel1',type:'獨棟民宿',dogSize:'小',rating:4,price:'100',furniture:'可',lawn:'無',park:'是',dogpark:'否',restaurant:'是',bowl:'是',address:'新北市',dogArea:'否'},
     {id:'hotel2',name:'Hotel2',type:'營區',dogSize:'大、中、小',rating:5,price:'免費',furniture:'否',lawn:'有',park:'是',dogpark:'是',restaurant:'是',bowl:'是',address:'新北市',dogArea:'是'},
-    {id:'sample1',name:'汪汪漫旅 — 宜蘭民宿',type:'獨棟民宿',dogSize:'大、中、小',rating:4.8,price:'2800',furniture:'可',lawn:'有',park:'是',dogpark:'是',restaurant:'是',bowl:'是',address:'金山, 新北市',dogArea:'是'},
-    {id:'sample2',name:'毛孩天堂 — 花蓮山莊',type:'渡假木屋',dogSize:'中、小',rating:4.5,price:'3500',furniture:'可',lawn:'有',park:'是',dogpark:'否',restaurant:'是',bowl:'是',address:'花蓮市',dogArea:'是'},
-    {id:'sample3',name:'森林小屋',type:'渡假木屋',dogSize:'大、中、小',rating:4.7,price:'4200',furniture:'可',lawn:'有',park:'是',dogpark:'是',restaurant:'否',bowl:'是',address:'南投縣',dogArea:'是'},
-    {id:'sample4',name:'海邊狗狗民宿',type:'獨棟民宿',dogSize:'小',rating:4.3,price:'1800',furniture:'否',lawn:'無',park:'是',dogpark:'否',restaurant:'是',bowl:'是',address:'屏東, 墾丁',dogArea:'否'},
+    {id:'s1',name:'汪汪漫旅 · 宜蘭民宿',type:'獨棟民宿',dogSize:'大、中、小',rating:4.8,price:'2800',furniture:'可',lawn:'有',park:'是',dogpark:'是',restaurant:'是',bowl:'是',address:'宜蘭縣',dogArea:'是'},
+    {id:'s2',name:'毛孩天堂 · 花蓮山莊',type:'渡假木屋',dogSize:'中、小',rating:4.5,price:'3500',furniture:'可',lawn:'有',park:'是',dogpark:'否',restaurant:'是',bowl:'是',address:'花蓮市',dogArea:'是'},
+    {id:'s3',name:'森林小屋',type:'渡假木屋',dogSize:'大、中、小',rating:4.7,price:'4200',furniture:'可',lawn:'有',park:'是',dogpark:'是',restaurant:'否',bowl:'是',address:'南投縣',dogArea:'是'},
+    {id:'s4',name:'海邊狗狗民宿',type:'獨棟民宿',dogSize:'小',rating:4.3,price:'1800',furniture:'否',lawn:'無',park:'是',dogpark:'否',restaurant:'是',bowl:'是',address:'屏東縣',dogArea:'否'}
   ];
 }
 
-function ratingToPaws(rating) {
-  const full = Math.floor(rating);
-  return '🐾'.repeat(Math.min(full,5));
+function paws(r) {
+  var n = Math.min(Math.floor(r), 5);
+  var s = '';
+  for (var i = 0; i < n; i++) s += '🐾';
+  return s;
 }
 
-function makeCard(hotel, idx) {
-  const imgUrl = dogImages[idx % dogImages.length];
-  const tags = [];
-  if(hotel.dogArea === '是') tags.push('<span class="tag tag-green">全區落地</span>');
-  if(hotel.lawn === '有') tags.push('<span class="tag tag-green">有草地</span>');
-  if(hotel.dogpark === '是') tags.push('<span class="tag tag-green">狗狗公園</span>');
-  tags.push(`<span class="tag tag-type">${hotel.type||'民宿'}</span>`);
-  
-  return `<div class="card" onclick="showDetail('${hotel.id}')">
-    <div class="card-img"><img src="${imgUrl}" alt="${hotel.name}" loading="lazy" onerror="this.parentElement.innerHTML='🐕'"></div>
-    <div class="card-body">
-      <div class="card-top">
-        <div class="card-name">${hotel.name}</div>
-        <div class="card-rating">🐾 ${hotel.rating}</div>
-      </div>
-      <div class="card-location">${hotel.address||'台灣'}</div>
-      <div class="card-desc">接受：${hotel.dogSize||'大、中、小'}</div>
-      <div class="card-tags">${tags.join('')}</div>
-    </div>
-  </div>`;
+function esc(s) {
+  return String(s).replace(/'/g, "\\'");
 }
 
-function makeResultCard(hotel, idx) {
-  const imgUrl = dogImages[idx % dogImages.length];
-  const features = [];
-  if(hotel.dogSize) features.push(`<div class="feature-row"><svg viewBox="0 0 24 24" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>接受狗狗大小：${hotel.dogSize}</div>`);
-  if(hotel.dogArea==='是') features.push(`<div class="feature-row"><svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M3 12l18 0M3 6l18 0M3 18l18 0"/></svg>公共區域可落地</div>`);
-  if(hotel.lawn==='有') features.push(`<div class="feature-row"><svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>附設草皮活動區</div>`);
-  if(hotel.dogpark==='是') features.push(`<div class="feature-row"><svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/></svg>距離附近狗狗公園 13 分鐘</div>`);
+function makeCard(h, i) {
+  var img = dogImages[i % dogImages.length];
+  var tags = '';
+  if (h.dogArea === '是') tags += '<span class="tag tag-green">全區落地</span>';
+  if (h.lawn === '有') tags += '<span class="tag tag-green">有草地</span>';
+  if (h.dogpark === '是') tags += '<span class="tag tag-green">狗公園</span>';
+  tags += '<span class="tag tag-type">' + h.type + '</span>';
+  return '<div class="card" onclick="showDetail(\'' + esc(h.id) + '\')">'
+    + '<div class="card-img"><img src="' + img + '" alt="' + esc(h.name) + '" loading="lazy" onerror="this.parentElement.innerHTML=\'🐕\'"></div>'
+    + '<div class="card-body">'
+    + '<div class="card-top"><div class="card-name">' + h.name + '</div><div class="card-rating">🐾 ' + h.rating + '</div></div>'
+    + '<div class="card-location">' + h.address + '</div>'
+    + '<div class="card-tags">' + tags + '</div>'
+    + '</div></div>';
+}
 
-  return `<div class="result-card" onclick="showDetail('${hotel.id}')">
-    <img class="result-img" src="${imgUrl}" alt="${hotel.name}" loading="lazy" onerror="this.src=''">
-    <div class="result-info">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start">
-        <div>
-          <div class="result-name">${hotel.name}</div>
-          <div class="result-sub">${hotel.address||'台灣'} · ${hotel.type||'民宿'}</div>
-        </div>
-        <div class="result-rating">🐾 ${hotel.rating}</div>
-      </div>
-      <div class="result-features">${features.join('')}</div>
-      <div class="result-bottom">
-        <div class="result-tags">
-          ${hotel.dogArea==='是'?'<span class="tag tag-green">全區落地</span>':''}
-          ${hotel.lawn==='有'?'<span class="tag tag-green">有草地</span>':''}
-          ${hotel.park==='是'?'<span class="tag tag-green">近公園</span>':''}
-          ${hotel.restaurant==='是'?'<span class="tag tag-green">可到餐廳</span>':''}
-        </div>
-        <div style="font-size:15px;font-weight:700;color:var(--green-dark)">
-          ${hotel.price&&hotel.price!=='無'&&hotel.price!=='免費'?'$'+hotel.price+' <span style="font-size:12px;font-weight:400;color:var(--text-light)">/晚</span>':'免費入住'}
-        </div>
-      </div>
-    </div>
-  </div>`;
+function makeResult(h, i) {
+  var img = dogImages[i % dogImages.length];
+  var feats = '';
+  if (h.dogSize) feats += '<div class="feature-row"><svg viewBox="0 0 24 24" stroke-width="1.5"><circle cx="12" cy="12" r="10"/></svg>接受：' + h.dogSize + '</div>';
+  if (h.dogArea === '是') feats += '<div class="feature-row"><svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M4 6h16M4 12h16M4 18h16"/></svg>公共區域可落地</div>';
+  if (h.lawn === '有') feats += '<div class="feature-row"><svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M3 17l9-9 9 9"/></svg>附設草皮活動區</div>';
+  if (h.dogpark === '是') feats += '<div class="feature-row"><svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>附近狗狗公園</div>';
+  var price = (h.price && h.price !== '無' && h.price !== '免費') ? '$' + h.price + '<span style="font-size:11px;font-weight:400;color:var(--text-light)">/晚</span>' : '免費入住';
+  var rtags = '';
+  if (h.dogArea === '是') rtags += '<span class="tag tag-green">全區落地</span>';
+  if (h.lawn === '有') rtags += '<span class="tag tag-green">有草地</span>';
+  if (h.park === '是') rtags += '<span class="tag tag-green">近公園</span>';
+  if (h.restaurant === '是') rtags += '<span class="tag tag-green">可至餐廳</span>';
+  return '<div class="result-card" onclick="showDetail(\'' + esc(h.id) + '\')">'
+    + '<img class="result-img" src="' + img + '" alt="' + esc(h.name) + '" loading="lazy">'
+    + '<div>'
+    + '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px">'
+    + '<div><div class="result-name">' + h.name + '</div><div class="result-sub">' + h.address + ' · ' + h.type + '</div></div>'
+    + '<div style="font-size:13px;font-weight:700">🐾 ' + h.rating + '</div></div>'
+    + feats
+    + '<div class="result-bottom"><div class="result-tags">' + rtags + '</div>'
+    + '<div style="font-size:15px;font-weight:700;color:var(--green-dark)">' + price + '</div></div>'
+    + '</div></div>';
 }
 
 function renderHome() {
-  const nearby = allHotels.slice(0, 4);
-  const large = allHotels.filter(h => h.dogSize && (h.dogSize.includes('大') || h.dogSize === '大、中、小')).slice(0,4);
-  
-  document.getElementById('nearbyCards').innerHTML = nearby.map((h,i)=>makeCard(h,i)).join('') || '<div class="loading">載入中...</div>';
-  document.getElementById('largeCards').innerHTML = large.length ? large.map((h,i)=>makeCard(h,i)).join('') : nearby.map((h,i)=>makeCard(h,i)).join('');
+  var near = allHotels.slice(0, 4);
+  var large = allHotels.filter(function(h) { return h.dogSize && h.dogSize.indexOf('大') >= 0; }).slice(0, 4);
+  document.getElementById('nearbyCards').innerHTML = near.map(makeCard).join('');
+  document.getElementById('largeCards').innerHTML = (large.length ? large : near).map(makeCard).join('');
 }
 
-function renderResults(hotels) {
-  document.getElementById('resultsCount').textContent = `${hotels.length} 個結果`;
-  document.getElementById('resultsList').innerHTML = hotels.map((h,i)=>makeResultCard(h,i)).join('') || '<div class="loading">沒有符合條件的結果</div>';
-}
-
-function showDetail(id) {
-  const hotel = allHotels.find(h=>h.id===id) || allHotels[0];
-  if(!hotel) return;
-  const imgs = dogImages.slice(0,4);
-  const thumbs = imgs.map((url,i)=>`<div class="thumb ${i===0?'active':''}" onclick="switchImg(this,'${url}')"><img src="${url}" alt=""></div>`).join('');
-  
-  const feats = [];
-  if(hotel.dogSize) feats.push(`<div class="detail-feature"><svg viewBox="0 0 24 24" stroke-width="1.5"><circle cx="12" cy="12" r="10"/></svg>寵物大小：${hotel.dogSize}</div>`);
-  if(hotel.dogArea==='是') feats.push(`<div class="detail-feature"><svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M4 6h16M4 12h16M4 18h16"/></svg>公共區域可落地</div>`);
-  if(hotel.lawn==='有') feats.push(`<div class="detail-feature"><svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>附設草皮活動區</div>`);
-  if(hotel.park==='是') feats.push(`<div class="detail-feature"><svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>附近有公園</div>`);
-  if(hotel.dogpark==='是') feats.push(`<div class="detail-feature"><svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>附近有狗狗公園</div>`);
-
-  const rules = [];
-  if(hotel.furniture==='可'||hotel.furniture==='是') rules.push(`<div class="rule-item"><svg viewBox="0 0 24 24" stroke="var(--green-dark)" stroke-width="1.5" fill="none"><path d="M5 13l4 4L19 7"/></svg>允許上家具（沙發、床）</div>`);
-  if(hotel.restaurant==='是') rules.push(`<div class="rule-item"><svg viewBox="0 0 24 24" stroke="var(--green-dark)" stroke-width="1.5" fill="none"><path d="M5 13l4 4L19 7"/></svg>可進入餐廳區</div>`);
-  if(hotel.bowl==='是') rules.push(`<div class="rule-item"><svg viewBox="0 0 24 24" stroke="var(--green-dark)" stroke-width="1.5" fill="none"><path d="M5 13l4 4L19 7"/></svg>提供水碗</div>`);
-  rules.push(`<div class="rule-item"><svg viewBox="0 0 24 24" stroke="var(--text-light)" stroke-width="1.5" fill="none"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg>請隨時清理排泄物</div>`);
-  rules.push(`<div class="rule-item"><svg viewBox="0 0 24 24" stroke="var(--text-light)" stroke-width="1.5" fill="none"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg>請繫好狗狗牽繩</div>`);
-
-  const priceDisplay = hotel.price && hotel.price!=='無' && hotel.price!=='免費' 
-    ? `$${hotel.price} <span>/ 晚</span>` 
-    : '<span style="font-size:16px">含房費（無額外寵物費）</span>';
-
-  document.getElementById('detailContent').innerHTML = `
-    <div class="detail-grid">
-      <div>
-        <div class="main-img" id="mainImg"><img src="${imgs[0]}" alt="${hotel.name}" id="mainImgEl"></div>
-        <div class="thumb-row">${thumbs}</div>
-        <div class="section-subtitle">關於這個地方</div>
-        <p style="font-size:14px;color:var(--text-mid);line-height:1.8">
-          ${hotel.name} 是一個${hotel.type||'民宿'}，接受${hotel.dogSize||'各種大小'}的狗狗入住。
-          ${hotel.dogArea==='是'?'狗狗可以在全區自由落地，享受無拘束的旅行體驗。':''}
-          ${hotel.lawn==='有'?'園區附設狗狗專屬草皮區，讓毛孩盡情奔跑。':''}
-          歡迎帶著您的毛孩一起入住，享受難忘的寵物友善旅遊體驗。
-        </p>
-      </div>
-      <div class="detail-panel">
-        <div class="detail-name">${hotel.name}</div>
-        <div class="detail-sub">可容納多名旅客 · ${hotel.type||'獨棟別墅'}</div>
-        <div class="detail-rating">${ratingToPaws(hotel.rating)} <span style="font-size:14px;font-weight:700">${hotel.rating}</span> <span style="font-size:13px;color:var(--text-light)">(1000+)</span></div>
-        <div class="detail-price">${priceDisplay}</div>
-        <div class="detail-features">${feats.join('')}</div>
-        <div class="section-subtitle" style="margin-top:0">寵物守則</div>
-        <div class="rules-list">${rules.join('')}</div>
-        ${hotel.website ? `<a href="${hotel.website}" target="_blank" style="display:block;text-align:center;margin-top:12px;font-size:13px;color:var(--green-dark);text-decoration:none">🔗 查看官方網頁</a>` : ''}
-        <button class="book-btn" onclick="alert('預訂功能即將上線！')">立即預訂</button>
-        <div class="map-box">📍 地圖載入中... (${hotel.address||'台灣'})</div>
-      </div>
-    </div>
-  `;
-  showPage('detail');
-}
-
-function switchImg(thumb, url) {
-  document.querySelectorAll('.thumb').forEach(t=>t.classList.remove('active'));
-  thumb.classList.add('active');
-  document.getElementById('mainImgEl').src = url;
-}
-
-function showPage(name) {
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById(name+'Page').classList.add('active');
-  window.scrollTo(0,0);
-}
-
-function openSearchModal() {
-  document.getElementById('searchModal').classList.add('open');
-}
-
-function closeSearchModal() {
-  document.getElementById('searchModal').classList.remove('open');
-}
-
-function doSearch() {
-  const loc = document.getElementById('inputLocation')?.value || '';
-  const date = document.getElementById('inputDate')?.value || '';
-  const guest = document.getElementById('inputGuest')?.value || '';
-  
-  if(loc) document.getElementById('navLocation').textContent = loc;
-  if(date) document.getElementById('navDate').textContent = date;
-  if(guest) document.getElementById('navGuest').textContent = guest;
-  
-  closeSearchModal();
-  const filtered = filterHotels();
-  renderResults(filtered);
-  showPage('results');
-}
-
-function toggleFilter(el, key) {
-  el.classList.toggle('active');
-  if(activeFilters.has(key)) activeFilters.delete(key);
-  else activeFilters.add(key);
-  renderResults(filterHotels());
+function renderResults(list) {
+  document.getElementById('resultsCount').textContent = list.length + ' 個結果';
+  document.getElementById('resultsList').innerHTML = list.length
+    ? list.map(makeResult).join('')
+    : '<div class="loading">沒有符合條件的結果</div>';
 }
 
 function filterHotels() {
-  if(activeFilters.size === 0) return allHotels;
-  return allHotels.filter(h => {
-    for(const f of activeFilters) {
-      if(f === 'small' && !h.dogSize?.includes('小')) return false;
-      if(f === 'medium' && !h.dogSize?.includes('中')) return false;
-      if(f === 'large' && !h.dogSize?.includes('大')) return false;
-      if(f === 'furniture' && h.furniture !== '可' && h.furniture !== '是') return false;
-      if(f === 'lawn' && h.lawn !== '有') return false;
-      if(f === 'park' && h.park !== '是') return false;
-      if(f === 'dogpark' && h.dogpark !== '是') return false;
-      if(f === 'restaurant' && h.restaurant !== '是') return false;
-      if(f === 'bowl' && h.bowl !== '是') return false;
-      if(f.startsWith('type_') && h.type !== f.replace('type_','')) return false;
-    }
-    return true;
+  if (!activeFilters.size) return allHotels;
+  return allHotels.filter(function(h) {
+    var ok = true;
+    activeFilters.forEach(function(f) {
+      if (f === 'small' && (!h.dogSize || h.dogSize.indexOf('小') < 0)) ok = false;
+      if (f === 'medium' && (!h.dogSize || h.dogSize.indexOf('中') < 0)) ok = false;
+      if (f === 'large' && (!h.dogSize || h.dogSize.indexOf('大') < 0)) ok = false;
+      if (f === 'furniture' && h.furniture !== '可' && h.furniture !== '是') ok = false;
+      if (f === 'lawn' && h.lawn !== '有') ok = false;
+      if (f === 'park' && h.park !== '是') ok = false;
+      if (f === 'dogpark' && h.dogpark !== '是') ok = false;
+      if (f === 'restaurant' && h.restaurant !== '是') ok = false;
+      if (f === 'bowl' && h.bowl !== '是') ok = false;
+      if (f.indexOf('type_') === 0 && h.type !== f.replace('type_', '')) ok = false;
+    });
+    return ok;
   });
 }
 
-document.getElementById('searchModal').addEventListener('click', function(e) {
-  if(e.target === this) closeSearchModal();
-});
-
-async function init() {
-  document.getElementById('nearbyCards').innerHTML = '<div class="loading" style="grid-column:1/-1">載入旅宿資料中...</div>';
-  allHotels = await loadNotionData();
-  renderHome();
+function toggleFilter(el, k) {
+  el.classList.toggle('active');
+  if (activeFilters.has(k)) activeFilters.delete(k); else activeFilters.add(k);
+  renderResults(filterHotels());
 }
 
-init();
+function showDetail(id) {
+  var h = null;
+  for (var i = 0; i < allHotels.length; i++) { if (allHotels[i].id === id) { h = allHotels[i]; break; } }
+  if (!h) h = allHotels[0];
+  if (!h) return;
+
+  var imgs = dogImages.slice(0, 4);
+  var thumbs = imgs.map(function(u, i) {
+    return '<img class="thumb' + (i === 0 ? ' active' : '') + '" src="' + u + '" onclick="switchImg(this,\'' + u + '\')" alt="">';
+  }).join('');
+
+  var feats = '';
+  if (h.dogSize) feats += '<div class="detail-feat"><svg viewBox="0 0 24 24" stroke-width="1.5"><circle cx="12" cy="12" r="10"/></svg>寵物大小：' + h.dogSize + '</div>';
+  if (h.dogArea === '是') feats += '<div class="detail-feat"><svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M4 6h16M4 12h16M4 18h16"/></svg>公共區域可落地</div>';
+  if (h.lawn === '有') feats += '<div class="detail-feat"><svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M3 17l9-9 9 9"/></svg>附設草皮活動區</div>';
+  if (h.park === '是') feats += '<div class="detail-feat"><svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>附近有公園</div>';
+  if (h.dogpark === '是') feats += '<div class="detail-feat"><svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>附近有狗狗公園</div>';
+
+  var rules = '';
+  if (h.furniture === '可' || h.furniture === '是') rules += '<div class="rule-item"><svg viewBox="0 0 24 24" stroke="var(--green-dark)" stroke-width="1.5" fill="none"><path d="M5 13l4 4L19 7"/></svg>允許上家具（沙發、床）</div>';
+  if (h.restaurant === '是') rules += '<div class="rule-item"><svg viewBox="0 0 24 24" stroke="var(--green-dark)" stroke-width="1.5" fill="none"><path d="M5 13l4 4L19 7"/></svg>可進入餐廳區</div>';
+  if (h.bowl === '是') rules += '<div class="rule-item"><svg viewBox="0 0 24 24" stroke="var(--green-dark)" stroke-width="1.5" fill="none"><path d="M5 13l4 4L19 7"/></svg>提供水碗</div>';
+  rules += '<div class="rule-item"><svg viewBox="0 0 24 24" stroke="var(--text-light)" stroke-width="1.5" fill="none"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg>請隨時清理排泄物</div>';
+  rules += '<div class="rule-item"><svg viewBox="0 0 24 24" stroke="var(--text-light)" stroke-width="1.5" fill="none"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg>請繫好狗狗牽繩</div>';
+
+  var price = (h.price && h.price !== '無' && h.price !== '免費') ? '$' + h.price + ' <span>/晚</span>' : '<span style="font-size:14px">含房費，無額外寵物費</span>';
+  var websiteLink = h.website ? '<a href="' + h.website + '" target="_blank" rel="noopener" style="display:block;text-align:center;margin-top:10px;font-size:12px;color:var(--green-dark);text-decoration:none">🔗 查看官方網頁</a>' : '';
+
+  document.getElementById('detailContent').innerHTML =
+    '<div class="detail-grid">'
+    + '<div>'
+    + '<div class="main-img-wrap"><img class="main-img" id="mainImg" src="' + imgs[0] + '" alt="' + esc(h.name) + '"></div>'
+    + '<div class="thumb-row">' + thumbs + '</div>'
+    + '<div class="section-subtitle">關於這個地方</div>'
+    + '<p style="font-size:13px;color:var(--text-mid);line-height:1.8">' + h.name + '是一個' + h.type + '，接受' + h.dogSize + '的狗狗入住。'
+    + (h.dogArea === '是' ? '狗狗可在全區自由落地，享受無拘束的旅行體驗。' : '')
+    + (h.lawn === '有' ? '園區附設狗狗專屬草皮，讓毛孩盡情奔跑。' : '')
+    + '歡迎帶著您的毛孩一起入住，享受難忘的寵物友善旅遊體驗。</p>'
+    + '</div>'
+    + '<div><div class="detail-panel-sticky">'
+    + '<div class="detail-name">' + h.name + '</div>'
+    + '<div class="detail-sub">' + h.type + ' · ' + h.address + '</div>'
+    + '<div class="detail-rating">' + paws(h.rating) + ' <span style="font-size:14px;font-weight:700">' + h.rating + '</span> <span style="font-size:12px;color:var(--text-light)">(1000+)</span></div>'
+    + '<div class="detail-price">' + price + '</div>'
+    + '<div class="detail-feats">' + feats + '</div>'
+    + '<div class="section-subtitle" style="margin-top:0">寵物守則</div>'
+    + '<div class="rules-list">' + rules + '</div>'
+    + websiteLink
+    + '<button class="book-btn" onclick="alert(\'預訂功能即將上線！\')">立即預訂</button>'
+    + '<div class="map-box">📍 地圖 · ' + h.address + '</div>'
+    + '</div></div></div>';
+
+  showPage('detail');
+}
+
+function switchImg(el, url) {
+  var thumbs = document.querySelectorAll('.thumb');
+  for (var i = 0; i < thumbs.length; i++) thumbs[i].classList.remove('active');
+  el.classList.add('active');
+  document.getElementById('mainImg').src = url;
+}
+
+function showPage(n) {
+  var pages = document.querySelectorAll('.page');
+  for (var i = 0; i < pages.length; i++) pages[i].classList.remove('active');
+  document.getElementById(n + 'Page').classList.add('active');
+  window.scrollTo(0, 0);
+
+  // 首頁隱藏 nav search，其他頁面顯示
+  var ns = document.getElementById('navSearch');
+  if (n === 'home') {
+    ns.classList.add('hidden');
+  } else {
+    ns.classList.remove('hidden');
+  }
+}
+
+function openSearchModal() { document.getElementById('searchModal').classList.add('open'); }
+function closeSearchModal() { document.getElementById('searchModal').classList.remove('open'); }
+
+function doSearch() {
+  var loc = document.getElementById('inputLocation').value || '';
+  var date = document.getElementById('inputDate').value || '';
+  var guest = document.getElementById('inputGuest').value || '';
+  if (loc) document.getElementById('navLocation').textContent = loc;
+  if (date) document.getElementById('navDate').textContent = date;
+  if (guest) document.getElementById('navGuest').textContent = guest;
+  closeSearchModal();
+  renderResults(filterHotels());
+  showPage('results');
+}
+
+document.getElementById('searchModal').addEventListener('click', function(e) {
+  if (e.target === this) closeSearchModal();
+});
+
+// init
+loadData().then(function(hotels) {
+  allHotels = hotels;
+  renderHome();
+});
 </script>
 </body>
 </html>
